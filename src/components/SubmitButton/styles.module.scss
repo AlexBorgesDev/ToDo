@@ -28,6 +28,11 @@
   &:focus {
     background-color: $primary-hover;
   }
+
+  &:disabled {
+    cursor: default;
+    background-color: $secondary;
+  }
 }
 
 button.loading {
