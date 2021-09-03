@@ -1,0 +1,65 @@
+@import '../../styles/colors.scss';
+
+.btnSubmit {
+  margin-top: 24px;
+
+  padding: 10px 0;
+
+  border: 0;
+  border-radius: 0.5rem;
+
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: center;
+
+  color: $white;
+  font: 600 1.5rem/1.5 Poppins, sans-serif;
+  text-transform: uppercase;
+
+  transition: background-color 0.15s ease-in-out;
+
+  cursor: pointer;
+  outline: none;
+  background-color: $primary;
+
+  &:hover,
+  &:focus {
+    background-color: $primary-hover;
+  }
+}
+
+button.loading {
+  cursor: default;
+  background-color: $secondary;
+
+  &:hover,
+  &:focus {
+    background-color: $secondary;
+  }
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+div.loading {
+  margin-right: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: loading 1s linear infinite;
+
+  & > svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
