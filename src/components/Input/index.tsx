@@ -9,6 +9,7 @@ import {
 import styles from './styles.module.scss'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  error?: boolean
   containerStyle?: CSSProperties
   containerClass?: string
 }
@@ -24,7 +25,7 @@ const Input = (props: InputProps) => {
 
   return (
     <div
-      className={`${styles.container} ${
+      className={`${styles.container} ${props.error ? styles.error : ''}  ${
         props.containerClass ? props.containerClass : ''
       }`}
       style={props.containerStyle}

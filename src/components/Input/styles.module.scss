@@ -8,6 +8,17 @@
   position: relative;
 
   margin-top: 12px;
+
+  &.error {
+    & > input {
+      color: $red;
+      border-color: $red;
+
+      & + label.label {
+        color: $red;
+      }
+    }
+  }
 }
 
 .input {
