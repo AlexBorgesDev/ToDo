@@ -5,8 +5,10 @@ import styles from './styles.module.scss'
 
 import Input from '../../components/Input'
 import SubmitButton from '../../components/SubmitButton'
+import { Link } from 'react-router-dom'
 
-const Login = () => {
+const SignUp = () => {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -16,6 +18,13 @@ const Login = () => {
         <h1 className={styles.title}>
           <FaCheck /> ToDo
         </h1>
+
+        <Input
+          value={name}
+          placeholder="Name"
+          containerClass={styles.input}
+          onChange={event => setName(event.target.value)}
+        />
 
         <Input
           value={email}
@@ -31,16 +40,16 @@ const Login = () => {
           onChange={event => setPassword(event.target.value)}
         />
 
-        <SubmitButton>ENTRAR</SubmitButton>
+        <SubmitButton>SIGN UP</SubmitButton>
 
         <span className={styles.or}>OU</span>
 
-        <a href="#register" className={styles.registerButton}>
-          CADASTRE-SE
-        </a>
+        <Link to="/" className={styles.loginButton}>
+          SIGN IN
+        </Link>
       </form>
     </div>
   )
 }
 
-export default Login
+export default SignUp
