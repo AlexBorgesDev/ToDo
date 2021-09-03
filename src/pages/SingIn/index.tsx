@@ -18,8 +18,6 @@ const SignIn = () => {
 
   const handleSignIn = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
-    if (loading) return
     setLoading(true)
 
     const errors = await signInValidation({ email, password })
@@ -58,7 +56,9 @@ const SignIn = () => {
           onChange={event => setPassword(event.target.value)}
         />
 
-        <SubmitButton loading={loading}>SIGN IN</SubmitButton>
+        <SubmitButton loading={loading} disabled={loading}>
+          SIGN IN
+        </SubmitButton>
 
         <span className={styles.or}>OU</span>
 
