@@ -51,6 +51,12 @@
   transition: transform 0.15s ease-in-out, font-size 0.15s ease-in-out,
     color 0.15s ease-in-out, background-color 0.15s ease-in-out;
 
+  &:hover {
+    transform: translateY(-24px);
+    font-size: 1.25rem;
+    background-color: $gray;
+  }
+
   &.active {
     transform: translateY(-24px);
     font-size: 1.25rem;
