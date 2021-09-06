@@ -1,12 +1,15 @@
 import { useState } from 'react'
-import { FaSignOutAlt } from 'react-icons/fa'
+import { FaPlus, FaSignOutAlt } from 'react-icons/fa'
 
 import styles from './styles.module.scss'
 
 import ToDo, { ToDoProps } from '../../components/ToDo'
+import ModelNewToDo from '../../components/ModelNewToDo'
 
 const Browser = () => {
   const [toDos, setToDos] = useState<ToDoProps[]>([])
+
+  const [visibleNewToDo, setVisibleNewToDo] = useState(false)
 
   return (
     <div className={styles.container}>
@@ -29,8 +32,21 @@ const Browser = () => {
           </main>
         )}
 
-        <footer></footer>
+        <button
+          className={styles.btnAddToDo}
+          onClick={() => setVisibleNewToDo(true)}
+        >
+          <FaPlus /> Add new ToDo
+        </button>
       </div>
+
+      <ModelNewToDo
+        visible={visibleNewToDo}
+        onVisible={setVisibleNewToDo}
+        onNewToDo={newToDo =>
+          setToDos([...toDos, { ...newToDo, onRemove: () => '' }])
+        }
+      />
     </div>
   )
 }

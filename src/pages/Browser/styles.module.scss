@@ -14,6 +14,8 @@
   height: 100vh;
   max-width: 720px;
 
+  position: relative;
+
   row-gap: 24px;
 
   display: grid;
@@ -80,4 +82,42 @@
 
   display: flex;
   flex-direction: column;
+}
+
+.btnAddToDo {
+  padding: 1rem 1.6rem;
+
+  bottom: 40px;
+  position: absolute;
+
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-self: center;
+  justify-content: center;
+
+  color: $white;
+  font: 500 1.6rem/1.5 Poppins, sans-serif;
+
+  border: 0;
+  border-radius: 2.4rem;
+
+  cursor: pointer;
+  outline: none;
+
+  transition: background-color 0.15s ease-in-out;
+
+  background-color: $primary;
+
+  & > svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: 1.2rem;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $primary-hover;
+  }
 }
