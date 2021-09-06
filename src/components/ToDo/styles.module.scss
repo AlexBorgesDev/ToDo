@@ -9,8 +9,14 @@
 
   column-gap: 14px;
 
+  transition: opacity 0.15s ease-in-out;
+
   border-radius: 0.25rem;
   background-color: $white;
+
+  &[data-completed='true'] {
+    opacity: 0.8;
+  }
 }
 
 .checkBox {
@@ -72,6 +78,10 @@
   align-items: center;
 
   font: 400 1.4rem/1.5 Poppins, sans-serif;
+
+  &[data-completed='true'] {
+    text-decoration: line-through;
+  }
 }
 
 .trash {

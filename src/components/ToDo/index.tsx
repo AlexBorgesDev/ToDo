@@ -23,7 +23,7 @@ const ToDo = (props: ToDoProps) => {
   const onRemove = () => props.onRemove({ id: props.id, index: props.index })
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-completed={completed}>
       <div className={styles.checkBox}>
         <button
           type="button"
@@ -34,7 +34,9 @@ const ToDo = (props: ToDoProps) => {
         </button>
       </div>
 
-      <p className={styles.content}>{props.task}</p>
+      <p className={styles.content} data-completed={completed}>
+        {props.task}
+      </p>
 
       <div className={styles.trash}>
         <button type="button" onClick={onRemove}>
