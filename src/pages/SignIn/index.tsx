@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import { FaCheck } from 'react-icons/fa'
+import { Link, useHistory } from 'react-router-dom'
 import { FormEvent, useState } from 'react'
 
 import styles from './styles.module.scss'
@@ -7,25 +7,44 @@ import styles from './styles.module.scss'
 import Input from '../../components/Input'
 import SubmitButton from '../../components/SubmitButton'
 
-import signInValidation from '../../validations/singIn.validation'
+import signInService, { SSignInProps } from '../../services/signIn.service'
 
 const SignIn = () => {
+  const history = useHistory()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const [errors, setErrors] = useState<(string | undefined)[]>([])
   const [loading, setLoading] = useState(false)
 
+  const handleError: SSignInProps['onError'] = err => {
+    if (err.response.status === 401) {
+      setErrors(['email', 'password'])
+    }
+  }
+
   const handleSignIn = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setLoading(true)
 
-    const errors = await signInValidation({ email, password })
+    const response = await signInService({
+      data: { email, password },
+      onError: handleError,
+      onDataError: setErrors,
+    })
 
-    if (errors) {
-      setErrors(errors)
-      return setLoading(false)
-    } else setErrors([])
+    if (response) {
+      localStorage.setItem('@session_token', response.token)
+      localStorage.setItem('@session_refresh_token', response.refreshToken.id)
+      localStorage.setItem(
+        '@session_refresh_token_expiresIn',
+        String(response.refreshToken.expiresIn)
+      )
+
+      setLoading(false)
+      return history.push('/browser')
+    }
 
     setLoading(false)
   }
