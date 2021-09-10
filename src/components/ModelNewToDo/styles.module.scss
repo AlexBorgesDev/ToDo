@@ -148,6 +148,15 @@
       transition: fill 0.15s ease-in-out;
     }
   }
+
+  &.error > input {
+    color: $red;
+    border-color: $red;
+
+    & + button > svg {
+      fill: $red;
+    }
+  }
 }
 
 @keyframes loading {
