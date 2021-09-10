@@ -21,19 +21,7 @@ async function getToDosService({ token, ...props }: SGetToDosProps) {
     data: { token, refreshToken: props.refreshToken },
   })
 
-  if (newToken) {
-    token = newToken.token
-
-    localStorage.setItem('@session_token', newToken.token)
-
-    if (newToken.refreshToken) {
-      localStorage.setItem('@session_refresh_token', newToken.refreshToken.id)
-      localStorage.setItem(
-        '@session_refresh_token_expiresIn',
-        String(newToken.refreshToken.expiresIn)
-      )
-    }
-  }
+  if (newToken) token = newToken.token
 
   try {
     const { data } = await api.get('/toDos', {

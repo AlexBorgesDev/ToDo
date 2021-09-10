@@ -30,19 +30,7 @@ async function createToDoService({ data, ...props }: SCreateToDoProps) {
     data: { refreshToken: data.refreshToken, token: data.token },
   })
 
-  if (newToken) {
-    data.token = newToken.token
-
-    localStorage.setItem('@session_token', newToken.token)
-
-    if (newToken.refreshToken) {
-      localStorage.setItem('@session_refresh_token', newToken.refreshToken.id)
-      localStorage.setItem(
-        '@session_refresh_token_expiresIn',
-        String(newToken.refreshToken.expiresIn)
-      )
-    }
-  }
+  if (newToken) data.token = newToken.token
 
   try {
     const response = await api.post(
