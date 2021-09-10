@@ -27,6 +27,20 @@ async function refreshTokenService({ data, ...props }: SRefreshTokenProps) {
       refreshToken: data.refreshToken,
     })
 
+    localStorage.setItem('@session_token', response.data.token)
+
+    if (response.data.refreshToken) {
+      localStorage.setItem(
+        '@session_refresh_token',
+        response.data.refreshToken.id
+      )
+
+      localStorage.setItem(
+        '@session_refresh_token_expiresIn',
+        String(response.data.refreshToken.expiresIn)
+      )
+    }
+
     return response.data as SRefreshTokenResponse
   } catch (err: any) {
     props.onError && props.onError(err)
