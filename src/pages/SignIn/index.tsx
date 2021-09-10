@@ -1,6 +1,6 @@
 import { FaCheck } from 'react-icons/fa'
 import { Link, useHistory } from 'react-router-dom'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 
 import styles from './styles.module.scss'
 
@@ -48,6 +48,12 @@ const SignIn = () => {
 
     setLoading(false)
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem('@session_token')
+
+    if (token) history.push('/browser')
+  }, [history])
 
   return (
     <div className={styles.container}>
