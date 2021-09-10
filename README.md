@@ -2,6 +2,12 @@
   <img alt="ToDo" src="./.github/logo.svg" height="122px" />
 </h1>
 
+<p align="center">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/AlexBorgesDev/to-do" />
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/AlexBorgesDev/to-do" />
+  <img alt="GitHub" src="https://img.shields.io/github/license/AlexBorgesDev/to-do" />
+</p>
+
 # ToDo
 
 ToDo é um site de gerenciamento de ToDos feito com React.js + Typescript.
