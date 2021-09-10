@@ -1,25 +1,27 @@
+import { useHistory } from 'react-router'
 import { FaPlus, FaTimes } from 'react-icons/fa'
 import { FormEvent, memo, useState } from 'react'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 import styles from './styles.module.scss'
 
+import { ToDoData } from '../../services/toDos/getToDos.service'
+
+import createToDoService from '../../services/toDos/createToDo.service'
+
 interface ModelNewToDoProps {
   visible?: boolean
   onVisible?: (state: boolean) => void
-  onNewToDo?: (data: {
-    id: string
-    task: string
-    completed: boolean
-    createdAt: number
-    updatedAt?: number
-  }) => void
+  onNewToDo?: (data: ToDoData) => void
 }
 
 const ModelNewToDo = (props: ModelNewToDoProps) => {
+  const history = useHistory()
+
   const [task, setTask] = useState('')
 
   const [loading, setLoading] = useState(false)
+  const [inputError, setInputError] = useState(false)
 
   const handleClose = async () => {
     if (loading) return
@@ -27,22 +29,35 @@ const ModelNewToDo = (props: ModelNewToDoProps) => {
     props.onVisible && props.onVisible(!props.visible)
   }
 
+  const handleLogOut = () => {
+    localStorage.clear()
+    history.push('/')
+  }
+
   const handleAddNewToDo = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     setLoading(true)
 
-    props.onNewToDo &&
-      props.onNewToDo({
-        id: String(Date.now()),
-        task,
-        completed: false,
-        createdAt: Date.now(),
-      })
+    const token = localStorage.getItem('@session_token')
+    const refreshToken = localStorage.getItem('@session_refresh_token')
+
+    if (!token || !refreshToken) return handleLogOut()
+
+    const newToDo = await createToDoService({
+      data: { refreshToken, task, token },
+      onDataError: err => setInputError(err.includes('task')),
+    })
+
+    if (newToDo) {
+      props.onNewToDo && props.onNewToDo(newToDo.data)
+
+      setTask('')
+      setLoading(false)
+      return await handleClose()
+    }
 
     setLoading(false)
-
-    await handleClose()
   }
 
   return (
@@ -58,7 +73,9 @@ const ModelNewToDo = (props: ModelNewToDoProps) => {
               </button>
             </div>
 
-            <div className={styles.input}>
+            <div
+              className={`${styles.input} ${inputError ? styles.error : ''}`}
+            >
               <input
                 type="text"
                 value={task}
