@@ -13,7 +13,7 @@ ToDo é um site de gerenciamento de ToDos feito com React.js + Typescript.
 * **[WEB](#web)**
 * **[MOBILE](#mobile---pixel-2-xl)**
 
-### Web
+### Web - 1024x768
 
 * **Sign In** <br />
 <img alt="SignIn" src="./.github/signIn-active.png" />
