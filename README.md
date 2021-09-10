@@ -6,7 +6,7 @@
 
 ToDo é um site de gerenciamento de ToDos feito com React.js + Typescript.
 
-> :warning: Essa aplicação depende da [API Simple ToDo](https://github.com/AlexBorgesDev/api-simple-to-do). A rota da url deve ser alterado no arquivo ./src/services/api.ts
+> :warning: Essa aplicação depende da [API Simple ToDo](https://github.com/AlexBorgesDev/api-simple-to-do). A rota da url deve ser alterado no arquivo ./src/services/api.ts.
 
 ## Screenshots
 
