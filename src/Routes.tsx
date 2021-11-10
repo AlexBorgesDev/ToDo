@@ -1,21 +1,71 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Redirect,
+  Route,
+  RouteProps,
+  Switch,
+} from 'react-router-dom'
 
-import SignIn from './pages/SignIn'
-import SignUp from './pages/SignUp'
-import Browser from './pages/Browser'
+import { useAuth } from './hooks/useAuth'
 
-const Routes = () => {
+// Pages
+import { Authenticate } from './pages/Authenticate'
+import { Browser } from './pages/Browser'
+
+function PrivateRoute({ children, ...rest }: RouteProps) {
+  const { user } = useAuth()
+
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        user ? (
+          children
+        ) : (
+          <Redirect to={{ pathname: '/signIn', state: { from: location } }} />
+        )
+      }
+    />
+  )
+}
+
+function RoutePrivateForAuthenticated({ children, ...rest }: RouteProps) {
+  const { user } = useAuth()
+
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        user ? (
+          <Redirect to={{ pathname: '/browser', state: { from: location } }} />
+        ) : (
+          children
+        )
+      }
+    />
+  )
+}
+
+export function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={SignIn} />
+        <RoutePrivateForAuthenticated exact path="/">
+          <Authenticate />
+        </RoutePrivateForAuthenticated>
 
-        <Route path="/signup" component={SignUp} />
+        <RoutePrivateForAuthenticated path="/signIn">
+          <Authenticate />
+        </RoutePrivateForAuthenticated>
 
-        <Route path="/browser" component={Browser} />
+        <RoutePrivateForAuthenticated path="/signUp">
+          <Authenticate />
+        </RoutePrivateForAuthenticated>
+
+        <PrivateRoute path="/">
+          <Browser />
+        </PrivateRoute>
       </Switch>
     </BrowserRouter>
   )
 }
-
-export default Routes

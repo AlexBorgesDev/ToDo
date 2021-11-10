@@ -1,109 +1,98 @@
-import { useHistory } from 'react-router-dom'
-import { FaCheck, FaPlus, FaSignOutAlt } from 'react-icons/fa'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { FaPlus } from 'react-icons/fa'
 
-import styles from './styles.module.scss'
+// Components
+import { Navbar } from '../../components/Navbar'
+import { NewToDoModal } from '../../components/NewToDoModal'
+import { ToDo } from '../../components/ToDoItem'
+import { ToDos } from '../../components/ToDos'
 
-import ToDo, { ToDoProps } from '../../components/ToDo'
-import ModelNewToDo from '../../components/ModelNewToDo'
+import {
+  Container,
+  Content,
+  NewToDoButton,
+  NewToDoButtonIcon,
+  NewToDoFloatButton,
+} from './styles'
 
-import getToDosService, {
-  ToDoData,
-} from '../../services/toDos/getToDos.service'
+export function Browser() {
+  const contentRef = useRef<HTMLDivElement>(null)
 
-import deleteToDoService from '../../services/toDos/deleteToDo.service'
+  const [newToDo, setNewToDo] = useState<ToDo | undefined>(undefined)
+  const [isVisibleAddToDoModal, setIsVisibleAddToDoModal] = useState(false)
 
-const Browser = () => {
-  const history = useHistory()
+  const [isVisibleAddFloatButton, setIsVisibleAddFloatButton] = useState(false)
+  const [toDoFloatButtonPosition, setToDoFloatButtonPosition] =
+    useState<number>()
 
-  const [toDos, setToDos] = useState<ToDoData[]>([])
-
-  const [visibleNewToDo, setVisibleNewToDo] = useState(false)
-
-  const handleLogOut = useCallback(() => {
-    localStorage.clear()
-
-    history.push('/')
-  }, [history])
-
-  const handleDeleteToDo: ToDoProps['onRemove'] = async ({ id }) => {
-    const token = localStorage.getItem('@session_token')
-    const refreshToken = localStorage.getItem('@session_refresh_token')
-
-    if (!token || !refreshToken) return handleLogOut()
-
-    try {
-      await deleteToDoService(id, { token, refreshToken })
-
-      setToDos(toDos.filter(data => data.id !== id))
-    } catch (err) {
-      alert('Something went wrong when trying to delete ToDo')
-    }
+  function handleNewToDo(toDo: ToDo) {
+    setNewToDo(toDo)
   }
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-extra-semi
-    ;(async () => {
-      const token = localStorage.getItem('@session_token')
-      const refreshToken = localStorage.getItem('@session_refresh_token')
+    function handleSetToDoFloatButtonPosition() {
+      if (contentRef.current) {
+        const cords = contentRef.current.getBoundingClientRect()
+        setToDoFloatButtonPosition(cords.left + cords.width - 62)
+      }
+    }
 
-      if (!token || !refreshToken) return handleLogOut()
+    handleSetToDoFloatButtonPosition()
+    window.addEventListener('resize', handleSetToDoFloatButtonPosition)
 
-      const response = await getToDosService({
-        token,
-        refreshToken,
-        onError: err => console.log(err),
-      })
+    return () => {
+      window.removeEventListener('resize', handleSetToDoFloatButtonPosition)
+    }
+  }, [])
 
-      if (response) setToDos(response)
-    })()
-  }, [handleLogOut])
+  useEffect(() => {
+    function onScroll({ currentTarget }: HTMLElementEventMap['scroll']) {
+      const element = currentTarget as Window
+
+      if (element.scrollY > 80) setIsVisibleAddFloatButton(true)
+      else setIsVisibleAddFloatButton(false)
+    }
+
+    window.addEventListener('scroll', onScroll)
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <section className={styles.topSection}>
-          <h1 className={styles.title}>
-            <FaCheck /> ToDo
-          </h1>
+    <Container>
+      <Navbar />
 
-          <button className={styles.logOutBtn} onClick={handleLogOut}>
-            <FaSignOutAlt /> Log out
-          </button>
-        </section>
-
-        {toDos.length === 0 ? (
-          <div className={styles.notTodos}>
-            <h3>You still don't have any ToDo</h3>
-          </div>
-        ) : (
-          <main className={styles.main}>
-            {toDos.map((toDo, index) => (
-              <ToDo
-                key={toDo.id}
-                {...toDo}
-                index={index}
-                onRemove={handleDeleteToDo}
-              />
-            ))}
-          </main>
-        )}
-
-        <button
-          className={styles.btnAddToDo}
-          onClick={() => setVisibleNewToDo(true)}
+      <Content ref={contentRef}>
+        <NewToDoButton
+          data-testid="newToDoButton"
+          onClick={() => setIsVisibleAddToDoModal(true)}
         >
-          <FaPlus /> Add new ToDo
-        </button>
-      </div>
+          <NewToDoButtonIcon>
+            <FaPlus />
+          </NewToDoButtonIcon>
+          Add new ToDo
+        </NewToDoButton>
 
-      <ModelNewToDo
-        visible={visibleNewToDo}
-        onVisible={setVisibleNewToDo}
-        onNewToDo={newToDo => setToDos([...toDos, newToDo])}
+        <ToDos newToDo={newToDo} />
+
+        {isVisibleAddFloatButton && (
+          <NewToDoFloatButton
+            data-testid="newToDoFloatButton"
+            positionX={toDoFloatButtonPosition}
+            onClick={() => setIsVisibleAddToDoModal(true)}
+          >
+            <FaPlus />
+          </NewToDoFloatButton>
+        )}
+      </Content>
+
+      <NewToDoModal
+        isVisible={isVisibleAddToDoModal}
+        onNewToDo={handleNewToDo}
+        onDismiss={setIsVisibleAddToDoModal}
       />
-    </div>
+    </Container>
   )
 }
-
-export default Browser

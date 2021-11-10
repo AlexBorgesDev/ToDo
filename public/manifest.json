@@ -1,6 +1,6 @@
 {
-  "short_name": "Simple ToDo",
-  "name": "Simple ToDo",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#6457a6",
-  "background_color": "#e5e5e5"
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }

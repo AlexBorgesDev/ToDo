@@ -1,46 +1,56 @@
-<h1 align="center">
-  <img alt="ToDo" src="./.github/logo.svg" height="122px" />
-</h1>
-
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/AlexBorgesDev/to-do" />
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/AlexBorgesDev/to-do" />
-  <img alt="GitHub" src="https://img.shields.io/github/license/AlexBorgesDev/to-do" />
+  <img src="./.github/logo.svg" alt="ToDo - API" style="width: 362px;"  />
 </p>
 
-# ToDo
+<p align="center">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/AlexBorgesDev/ToDo.svg" />
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/AlexBorgesDev/ToDo.svg" />
+  <img alt="Package License" src="https://img.shields.io/github/license/alexborgesdev/ToDo.svg" />
+  <a href='https://coveralls.io/github/AlexBorgesDev/ToDo?branch=main'><img src='https://coveralls.io/repos/github/AlexBorgesDev/ToDo/badge.svg?branch=main' alt='Coverage Status' /></a>
+</p>
 
-ToDo é um site de gerenciamento de ToDos feito com React.js + Typescript.
+## Description
 
-> :warning: Essa aplicação depende da [API Simple ToDo](https://github.com/AlexBorgesDev/api-simple-to-do). A rota da url deve ser alterado no arquivo ./src/services/api.ts.
+Made with React.js, the ToDo site is a ToDos manager, where the user can create, change and delete their ToDos.
 
-## Screenshots
+## Installation
 
-* **[WEB](#web)**
-* **[MOBILE](#mobile---pixel-2-xl)**
+```bash
+$ npm install
 
-### Web - 1024x768
+# or with yarn
 
-* **Sign In** <br />
-<img alt="SignIn" src="./.github/signIn-active.png" />
+$ yarn
+```
 
-* **Sign Up** <br />
-<img alt="SignUp" src="./.github/signUp.png" />
+> ℹ The API project used by the application can be found [here](https://github.com/AlexBorgesDev/toDo-api).
 
-* **Browser** <br />
-<img alt="Browser" src="./.github/browser.png" />
+## Environment variables
 
-* **Browser - Modal** <br />
-<img alt="Browser - Modal" src="./.github/browser-modal.png" />
+Before running or testing the application, an *`.env`* file must be created at the root of the project. The file must contain the same properties as the *[`.env.example`](.env.example)* file, changing only their respective values.
 
+Once the env file is created and populated, the application is ready to run.
 
-### Mobile - Pixel 2 XL
+## Running the app
 
-* **Sign In** <br />
-<img alt="SignIn - Mobile" src="./.github/signIn-active-mobile.png" />
+To run the application run the command:
 
-* **Browser** <br />
-<img alt="Browser - Mobile" src="./.github/browser-mobile.png" />
+```bash
+$ npm run start
 
-* **Browser - Modal** <br />
-<img alt="Browser - Modal - Mobile" src="./.github/browser-modal-mobile.png" />
+# or with yarn
+
+$ yarn start
+```
+
+## Running the tests
+
+To run the tests run the command:
+
+```bash
+$ npm run test
+
+# or with yarn
+
+$ yarn test
+```

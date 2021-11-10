@@ -1,0 +1,4 @@
+{
+  "src/**/*": "eslint . --ext js,ts,tsx",
+  "src/**/*.{js,ts,tsx}": "react-scripts test --watchAll=false --passWithNoTests"
+}
