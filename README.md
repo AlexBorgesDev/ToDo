@@ -5,7 +5,7 @@
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/AlexBorgesDev/ToDo.svg" />
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/AlexBorgesDev/ToDo.svg" />
-  <img alt="Package License" src="https://img.shields.io/github/license/alexborgesdev/ToDo.svg" />
+  <img alt="Package License" src="https://img.shields.io/github/license/AlexBorgesDev/ToDo.svg" />
   <a href='https://coveralls.io/github/AlexBorgesDev/ToDo?branch=main'><img src='https://coveralls.io/repos/github/AlexBorgesDev/ToDo/badge.svg?branch=main' alt='Coverage Status' /></a>
 </p>
 
@@ -29,7 +29,7 @@ or with yarn
 yarn
 ```
 
-> The API project used by the application can be found [here](https://github.com/AlexBorgesDev/toDo-api).
+> The API project used by the application can be found [here](https://github.com/AlexBorgesDev/ToDo-api).
 
 ## Environment variables
 
