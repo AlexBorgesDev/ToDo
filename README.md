@@ -9,21 +9,27 @@
   <a href='https://coveralls.io/github/AlexBorgesDev/ToDo?branch=main'><img src='https://coveralls.io/repos/github/AlexBorgesDev/ToDo/badge.svg?branch=main' alt='Coverage Status' /></a>
 </p>
 
+> Access the project [here](https://to-do.alexborgesdev.vercel.app).
+
 ## Description
 
 Made with React.js, the ToDo site is a ToDos manager, where the user can create, change and delete their ToDos.
 
 ## Installation
 
+With a terminal open at the root of the project, execute one of the commands below:
+
 ```bash
-$ npm install
-
-# or with yarn
-
-$ yarn
+npm install
 ```
 
-> ℹ The API project used by the application can be found [here](https://github.com/AlexBorgesDev/toDo-api).
+or with yarn
+
+```bash
+yarn
+```
+
+> The API project used by the application can be found [here](https://github.com/AlexBorgesDev/toDo-api).
 
 ## Environment variables
 
@@ -36,11 +42,13 @@ Once the env file is created and populated, the application is ready to run.
 To run the application run the command:
 
 ```bash
-$ npm run start
+npm run start
+```
 
-# or with yarn
+or with yarn
 
-$ yarn start
+```bash
+yarn start
 ```
 
 ## Running the tests
@@ -48,9 +56,23 @@ $ yarn start
 To run the tests run the command:
 
 ```bash
-$ npm run test
-
-# or with yarn
-
-$ yarn test
+npm run test
 ```
+
+or with yarn
+
+```bash
+yarn test
+```
+
+## Screenshots
+
+* **Login page**
+  <img alt="Login page - screenshot" src=".github/login.png" />
+
+* **Browser page**
+  <img alt="Browser page - screenshot" src=".github/browser.png" />
+
+## 📝 License
+
+This project is under the MIT license. See the [LICENSE](LICENSE) file for more details.
