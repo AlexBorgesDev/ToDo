@@ -75,7 +75,10 @@ export function Authenticate() {
       password,
     }).signIn()
 
-    if (dataErrors.length > 0) return setInputErrors(dataErrors)
+    if (dataErrors.length > 0) {
+      setLoading(false)
+      return setInputErrors(dataErrors)
+    }
 
     try {
       await signIn({ email, password })
@@ -94,7 +97,10 @@ export function Authenticate() {
       password,
     }).signUp()
 
-    if (dataErrors.length > 0) return setInputErrors(dataErrors)
+    if (dataErrors.length > 0) {
+      setLoading(false)
+      return setInputErrors(dataErrors)
+    }
 
     try {
       const response = await api.post('users', { name, email, password })
